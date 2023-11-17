@@ -1,0 +1,76 @@
+<%- include('../layouts/header.ejs') %>
+
+
+  <section>
+    <div class="container">
+      <div class="row mt-3">
+        <div class="d-flex justify-content-between">
+          <div>
+            <a href="/admin/new-user" class="btn btn-success">Add User</a>
+          </div>
+          
+          <div>
+            <form action="/admin/home" method="get">
+              <div class="input-group">
+                <input type="search" name="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                <!-- <button type="button" class="btn btn-outline-primary">search</button> -->
+                <input type="submit" class="btn btn-outline-primary" value="Search">
+              </div>
+            </form>
+          </div>
+          <div>
+            <a href="/admin/logout" class="btn btn-danger">Logout</a>
+          </div>
+        </div>
+      </div>
+
+
+      <table class="table mt-4">
+
+        <thead>
+          <tr>
+            <th scope="col">User Name</th>
+            <th scope="col">Password</th>
+            <th scope="col">E-Mail</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% if(users.length> 0) { %>
+            <% for(let i=0; i<users.length; i++) { %>
+              <tr>
+                <td>
+                  <%= users[i].name %>
+                </td>
+                <td>
+                  <%= users[i].password %>
+                </td>
+                <td>
+                  <%= users[i].email %>
+                </td>
+                <td>
+                  <%= users[i].mobile %>
+                </td>
+                <td><a href="/admin/edit-user?id=<%= users[i]._id %>"><img style="width: 20px; height: auto;"
+                      src="https://cdn4.iconfinder.com/data/icons/social-messaging-ui-coloricon-1/21/31-512.png"
+                      alt="Edit"></a></td>
+                <td><a href="/admin/delete-user?id=<%= users[i]._id %>"><img style="width: 20px; height: auto;"
+                      src="https://cdn-icons-png.flaticon.com/512/6861/6861362.png" alt="Delete"></a></td>
+              </tr>
+              <% } %>
+                <% } else { %>
+                  <tr>
+                    <td>User not found</td>
+                  </tr>
+                  <% } %>
+        </tbody>
+
+      </table>
+
+    </div>
+  </section>
+
+  <%- include('../layouts/footer.ejs') %>

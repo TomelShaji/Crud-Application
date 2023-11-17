@@ -1,0 +1,97 @@
+<%- include('../layouts/header.ejs') %>
+
+  <section class="vh-100 bg-image"
+    style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
+    <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+      <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+            <div class="card" style="border-radius: 15px;">
+              <div class="card-body p-5">
+                <h2 class="text-uppercase text-center mb-5">Create an account</h2>
+
+                <form id="registrationForm" action="" method="post" enctype="multipart/form-data">
+
+                  <div class="form-outline mb-4">
+                    <input type="text" name="name" class="form-control form-control-lg" />
+                    <label class="form-label" for="name">Your Name</label>
+                  </div>
+
+                  <div class="form-outline mb-4">
+                    <input type="email" name="email" class="form-control form-control-lg" />
+                    <label class="form-label" for="email">Your Email</label>
+                  </div>
+
+                  <div class="form-outline mb-4">
+                    <input type="password" name="password" class="form-control form-control-lg" />
+                    <label class="form-label" for="password">Password</label>
+                  </div>
+
+                  <div class="form-outline mb-4">
+                    <input type="text" name="mobile" class="form-control form-control-lg" />
+                    <label class="form-label" for="mobile">Your Phone</label>
+                  </div>
+
+                  <div class="form-outline mb-4">
+                    <input type="file" name="image" class="form-control form-control-lg" />
+                    <label class="form-label">Profile Picture</label>
+                  </div>
+                  <% if(typeof message !=='undefined' ){ %>
+                    <p>
+                      <%= message %>
+                    </p>
+                    <% } %>
+                    <p id="errorMessages" class="text-danger"></p>
+                  <div class="row mt-3">
+                    <!-- <a href="/login" class="btn btn-primary btn-lg">Register</a> -->
+                    <input class="btn btn-primary btn-lg" type="submit" value="Register" />
+                    
+                  </div>
+                  <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="/login"
+                      class="fw-bold text-body"><u>Login here</u></a></p>
+                      <p class="text-center text-muted mt-5 mb-0">Are you the Admin? <a href="/admin"
+                        class="fw-bold text-body"><u>Login here</u></a></p>
+
+                </form>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <%- include('../layouts/footer.ejs') %>
+
+  <script>
+    document.getElementById('registrationForm').addEventListener('submit', function (event) {
+      const name = document.getElementsByName('name')[0].value;
+      const email = document.getElementsByName('email')[0].value;
+      const password = document.getElementsByName('password')[0].value;
+      const mobile = document.getElementsByName('mobile')[0].value;
+      const errorMessages = document.getElementById('errorMessages');
+  
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const isEmailValid = emailRegex.test(email);
+  
+      errorMessages.innerHTML = '';
+  
+      if (name.length < 1) {
+        errorMessages.innerHTML += 'Name should have at least 1 character.<br>';
+      }
+      if (!isEmailValid) {
+        errorMessages.innerHTML += 'Please enter a valid email.<br>';
+      }
+      if (password.length < 6) {
+        errorMessages.innerHTML += 'Password should contain at least 6 characters.<br>';
+      }
+      if (mobile.length !== 10) {
+        errorMessages.innerHTML += 'Mobile number should have 10 digits.<br>';
+      }
+  
+      if (errorMessages.innerHTML !== '') {
+        event.preventDefault();
+      }
+    });
+  </script>
